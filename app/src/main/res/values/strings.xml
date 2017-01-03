@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Partiu Futebol</string>
+
+
+    <string name="facebook_app_id">1832451683680125</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
