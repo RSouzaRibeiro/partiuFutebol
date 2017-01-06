@@ -1,8 +1,11 @@
 package com.br.partiufutebol.activitys;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.br.partiufutebol.R;
+import com.br.partiufutebol.util.Util;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,11 +31,15 @@ public class MainActivity extends AppCompatActivity
     String matricula;
     String nomeUsuario;
 
+    FragmentManager fragmentManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        new Util().verificaPermissoes(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -105,8 +113,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            fragmentManager = getSupportFragmentManager();
+
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
+            transaction.commitAllowingStateLoss();
         } else if (id == R.id.nav_gallery) {
+
+            
+
 
         } else if (id == R.id.nav_slideshow) {
 

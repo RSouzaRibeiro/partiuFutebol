@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background_campo_2"
+    android:background="@drawable/background_bola"
     tools:context=".activitys.LoginActivity">
 
     <com.facebook.login.widget.LoginButton
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="196dp"
+        android:layout_marginBottom="89dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
