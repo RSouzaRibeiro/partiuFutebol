@@ -22,29 +22,43 @@ import com.br.partiufutebol.util.Util;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView txtNomeUsuario;
     TextView txtDiaSemana;
+
     String matricula;
     String nomeUsuario;
 
     FragmentManager fragmentManager;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference myRefLer;
+    private DatabaseReference myRefGravar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
         new Util().verificaPermissoes(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        fragmentManager = getSupportFragmentManager();
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        myRefLer = firebaseDatabase.getReference();
 
         if(user == null){
             goLoginActivity();
@@ -67,9 +81,6 @@ public class MainActivity extends AppCompatActivity
             txtDiaSemana = (TextView)navHeader.findViewById(R.id.txtDiaSemana);
 
 
-
-
-
                     nomeUsuario = user.getDisplayName();
                     matricula = user.getEmail();
 
@@ -79,6 +90,27 @@ public class MainActivity extends AppCompatActivity
 
 
         }
+
+
+
+
+        myRefGravar = FirebaseDatabase.getInstance().getReference();
+
+
+
+                myRefLer.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String mensagem = dataSnapshot.getValue(String.class);
+                        txtDiaSemana.setText(mensagem);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
 
@@ -113,15 +145,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            fragmentManager = getSupportFragmentManager();
 
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            transaction.add(R.id.container, new MapsFragment(), "MapsFragment");
-            transaction.commitAllowingStateLoss();
+            transaction.replace(R.id.container, new MapsFragment(), "MapsFragment");
+            transaction.commit();
         } else if (id == R.id.nav_gallery) {
 
-            
 
 
         } else if (id == R.id.nav_slideshow) {
