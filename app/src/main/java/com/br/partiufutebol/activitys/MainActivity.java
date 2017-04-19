@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.br.partiufutebol.R;
+import com.br.partiufutebol.fragments.ChatFragment;
 import com.br.partiufutebol.util.Util;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,8 +102,7 @@ public class MainActivity extends AppCompatActivity
                 myRefLer.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String mensagem = dataSnapshot.getValue(String.class);
-                        txtDiaSemana.setText(mensagem);
+
 
                     }
 
@@ -146,11 +146,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
 
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.container, new MapsFragment(), "MapsFragment");
-            transaction.commit();
+            MapsFragment mapsFragment = new MapsFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.rl_fragment_container, mapsFragment).commit();
+
         } else if (id == R.id.nav_gallery) {
 
+            ChatFragment  chatFragment = new ChatFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.rl_fragment_container, chatFragment).commit();
 
 
         } else if (id == R.id.nav_slideshow) {

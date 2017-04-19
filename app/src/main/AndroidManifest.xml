@@ -66,9 +66,10 @@
             android:name=".activitys.MapsFragment"
             android:label="@string/title_activity_maps_fragment" />
         <activity
-            android:name=".CadastroActivity"
+            android:name=".activitys.CadastroActivity"
             android:label="@string/title_activity_cadastro" />
-        <activity android:name=".activitys.CadastroActivity"></activity>
+
+        <activity android:name=".test.testActivity"></activity>
     </application>
 
 </manifest>
