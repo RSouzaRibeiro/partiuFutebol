@@ -1,4 +1,4 @@
-package com.br.partiufutebol.activitys;
+package com.br.partiufutebol.fragments;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -62,10 +62,10 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
+*/
 
     }
 

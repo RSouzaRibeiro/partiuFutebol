@@ -57,9 +57,7 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_chat, container, false);
 
-        /*edtTexto = (EditText)view.findViewById(R.id.edtTexto);
-        edtLeitura = (EditText)view.findViewById(R.id.edtLeitura);
-        btnGravar = (Button)view.findViewById(R.id.btnGravar);*/
+
 
 
         sendBtn = (Button) view.findViewById(R.id.sendBtn);
@@ -123,20 +121,6 @@ databaseReference.addChildEventListener(new ChildEventListener() {
 });
 
 
-        /*databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-               Usuario mensagem = dataSnapshot.getValue(Usuario.class);
-                if(mensagem!=null){
-                    edtLeitura.setText(mensagem.getUsuario().toString().toUpperCase()+"\n"+mensagem.getMensagem().toString()+"\n\n");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
         return view;
     }
 

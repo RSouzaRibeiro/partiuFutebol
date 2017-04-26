@@ -63,7 +63,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activitys.MapsFragment"
+            android:name=".fragments.MapsFragment"
             android:label="@string/title_activity_maps_fragment" />
         <activity
             android:name=".activitys.CadastroActivity"

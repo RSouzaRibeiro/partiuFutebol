@@ -3,9 +3,11 @@ package com.br.partiufutebol.activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,12 +17,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.br.partiufutebol.R;
 import com.br.partiufutebol.fragments.ChatFragment;
+import com.br.partiufutebol.fragments.MapsFragment;
 import com.br.partiufutebol.util.Util;
 import com.facebook.login.LoginManager;
+import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,21 +34,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView txtNomeUsuario;
     TextView txtDiaSemana;
+    ImageView imgPerfil;
 
     String matricula;
     String nomeUsuario;
+    ProfilePictureView profilePictureView;
+
 
     FragmentManager fragmentManager;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference myRefLer;
     private DatabaseReference myRefGravar;
-
+    private  FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRefLer = firebaseDatabase.getReference();
 
@@ -80,13 +92,22 @@ public class MainActivity extends AppCompatActivity
 
             txtNomeUsuario = (TextView)navHeader.findViewById(R.id.txtNomeUsuario);
             txtDiaSemana = (TextView)navHeader.findViewById(R.id.txtDiaSemana);
+            profilePictureView = (ProfilePictureView) navHeader.findViewById(R.id.friendProfilePicture);
 
-
+                    if(user!=null){
                     nomeUsuario = user.getDisplayName();
                     matricula = user.getEmail();
 
+
+
+                    }
+
                     txtNomeUsuario.setText("OLÁ "+nomeUsuario);
-                    txtDiaSemana.setText("EMAIL: "+ matricula);
+                    txtDiaSemana.setText("EMAIL: " + matricula);
+                    profilePictureView.setProfileId(user.getProviderId());
+
+
+
 
 
 
@@ -98,18 +119,17 @@ public class MainActivity extends AppCompatActivity
         myRefGravar = FirebaseDatabase.getInstance().getReference();
 
 
+        myRefLer.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                myRefLer.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
 
+            }
 
-                    }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
+            }
                 });
 
 
@@ -133,6 +153,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
 
 
